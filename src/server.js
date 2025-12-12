@@ -90,7 +90,7 @@ app.get('/api/v1/streamingProxy', async (req, res) => {
 
     if (isM3U8) {
       const playlistText = await response.text();
-      const modifiedPlaylist = rewritePlaylistUrls(playlistText, url);
+      const modifiedPlaylist = rewritePlaylistUrls(playlistText, url, env.REFERER_URL);
 
       // Cache the response
       cache.set(url, modifiedPlaylist);
