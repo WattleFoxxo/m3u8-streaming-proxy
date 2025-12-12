@@ -1,4 +1,4 @@
-function rewritePlaylistUrls(playlistText, baseUrl) {
+function rewritePlaylistUrls(playlistText, baseUrl, refererUrl) {
   const base = new URL(baseUrl);
   return playlistText
     .split("\n")
@@ -8,7 +8,7 @@ function rewritePlaylistUrls(playlistText, baseUrl) {
 
       try {
         const resolvedUrl = new URL(trimmed, base).href;
-        return `/api/v1/streamingProxy?url=${encodeURIComponent(resolvedUrl)}`;
+        return `${refererUrl}api/v1/streamingProxy?url=${encodeURIComponent(resolvedUrl)}`;
       } catch (e) {
         console.warn('Failed to resolve URL:', trimmed);
         return line; // Return original line if URL resolution fails
